@@ -1,0 +1,112 @@
+input,
+textarea,
+select {
+    appearance: none;
+    width: 100%;
+    border-radius: .5rem;
+    border: 2px solid transparent;
+    outline: 1px solid var(--stroke-default);
+
+    padding: .75rem 1rem;
+
+    font: var(--text)
+}
+
+label {
+    font: var(--text-sm);
+    color: var(--text-secondary);
+
+    display: block;
+    margin-bottom: .25rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+input[type="date"]:focus-within
+
+/*Verifica qual elemento está em foco*/
+    {
+    outline: .25rem solid var(--surface-secondary);
+    border-color: var(--stroke-highlight);
+
+    /* Utilizado apenas para fazer a bordar aparecer no Safari */
+    outline-offset: .1px;
+}
+
+input[type="date"] {
+    position: relative;
+
+    /* Seleciona o icone de calendário dentro de um input do tipo date em oculta*/
+    &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: url(../../assets/icons/calendar-03.svg) center/contain;
+        right: 1rem;
+        width: 1.25rem;
+        height: 1.25rem;
+
+        /* Para centralizar o icone: */
+        /* Move o ícone para baixo */
+        top: 50%;
+        /* Move a metade de baixo para cima, assim o elemento fica exatamente ao centro. */
+        transform: translateY(-50%);
+    }
+}
+
+select {
+    background: url(../../assets/icons/arrow-down-01.svg) no-repeat calc(100% - 1rem);
+}
+
+.address .flex {
+    gap: 1.25rem;
+}
+
+.input-wrapper:has([disable]) {
+    opacity: .5;
+}
+
+input {
+
+    &[disabled] {
+        background-color: var(--surface-disabled);
+        border: 1px solid var(--stroke-default);
+        color: var(--text-primary);
+    }
+
+    /* seleciona quando o campo está invalidado */
+    &:invalid {
+        border: 0.125rem solid var(--semantic-error);
+    }
+
+    /* seleciona o small que está depois de um input */
+    &+small {
+        font: var(--text-sm);
+        color: #78716c;
+
+        /* para conseguirmos adicionar margin top */
+        display: inline-block;
+        margin-top: 0.25rem;
+    }
+
+    /* Se no meu input tiver um campo required seguido de uma classe error, então seleciona o elemento da class*/
+    &[required]+.error {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        font: var(--text-sm);
+        color: var(--semantic-error);
+
+        margin-top: 0.25rem;
+    }
+
+    /* Se o input seguido de uma classe error for válido e não estiver com o foco, então oculta os elementos da classe error */
+    &:not(:focus):valid + .error {
+        display: none;
+    }
+}
